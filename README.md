@@ -50,7 +50,7 @@ src/
 
 
 
-\### Main Bounded Contexts (currently implemented):
+\### Main Bounded Contexts (to implement):
 
 \- \*\*Catalog\*\* (Products, Categories, Brands)
 
