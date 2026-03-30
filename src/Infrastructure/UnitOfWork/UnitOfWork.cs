@@ -1,5 +1,4 @@
-﻿using Application.Common.Interfaces;
-using Domain.Common;
+﻿using Domain.Common;
 using Infrastructure.DomainEvents;
 using Infrastructure.Persistance;
 using System;
