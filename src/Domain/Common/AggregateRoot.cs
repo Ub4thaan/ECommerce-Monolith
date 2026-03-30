@@ -7,16 +7,12 @@ namespace Domain.Common;
 // Domain/Common/AggregateRoot.cs
 using System.Collections.Generic;
 
-public abstract class AggregateRoot<TId> : Entity<TId>
+public abstract class AggregateRoot<TId>(TId id) : Entity<TId>(id)
     where TId : notnull
 {
-    private readonly List<DomainEvent> _domainEvents = new();
-
-    protected AggregateRoot(TId id) : base(id)
-    {
-    }
-
     public IReadOnlyCollection<DomainEvent> DomainEvents => _domainEvents.AsReadOnly();
+
+    private readonly List<DomainEvent> _domainEvents = [];
 
     protected void AddDomainEvent(DomainEvent domainEvent)
     {
