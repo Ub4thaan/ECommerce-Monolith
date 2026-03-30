@@ -1,8 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
-    <ProjectReference Include="..\Domain\Domain.csproj" />
+    <Compile Remove="DomainEvents\**" />
+    <EmbeddedResource Remove="DomainEvents\**" />
+    <None Remove="DomainEvents\**" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="DomainEvents\" />
+    <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 </Project>
