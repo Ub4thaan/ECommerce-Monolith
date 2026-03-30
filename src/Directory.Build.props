@@ -1,0 +1,21 @@
+<Project>
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <!-- SonarAnalyzer Configuration -->
+    <AnalysisLevel>latest</AnalysisLevel>
+    <AnalysisMode>default</AnalysisMode>
+    <TreatWarningAsErrors>true</TreatWarningAsErrors>
+    <CodeAnalysisTreatWarningAsErrors>true</CodeAnalysisTreatWarningAsErrors>
+  </PropertyGroup>
+
+  <ItemGroup>
+	  <PackageReference Include="SonarAnalyzer.CSharp" >
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
+  </ItemGroup>
+
+</Project>
