@@ -1,10 +1,11 @@
 ﻿using Domain.Common;
+using Infrastructure.Persistance;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Infrastructure.Persistance;
+namespace Infrastructure.Repositories;
 
 public class RepositoryBase<TAggregate, TId>(ApplicationDbContext context) : IRepository<TAggregate, TId>
     where TAggregate : AggregateRoot<TId>

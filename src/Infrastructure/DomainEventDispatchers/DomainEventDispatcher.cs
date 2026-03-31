@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Infrastructure.DomainEvents;
+namespace Infrastructure.DomainEventDispatchers;
 
 public class DomainEventDispatcher(IMediator mediator) : IDomainEventDispatcher
 {
