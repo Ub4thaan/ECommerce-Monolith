@@ -1,14 +1,19 @@
 \# E-Commerce Monolith - Clean Architecture \& DDD
 
-
-
 A complete \*\*enterprise-grade E-commerce\*\* application developed as a \*\*Monolith\*\* using modern .NET best practices.
 
 
 
 Built with \*\*Clean Architecture\*\*, \*\*Domain-Driven Design (DDD)\*\* and full adherence to \*\*SOLID principles\*\*, this project showcases how to structure a complex application while keeping high maintainability, testability, and domain clarity.
 
+---
 
+**⚠️ This project is under active development**
+
+The `main` branch contains the latest stable (or previously released) version.  
+**Active development happens on the [`developing`](https://github.com/Ub4thaan/ECommerce-Monolith/tree/developing) branch.**
+
+---
 
 \## 🎯 Project Goals
 
