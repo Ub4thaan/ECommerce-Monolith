@@ -1,6 +1,8 @@
-﻿namespace Infrastructure.Persistence;
+﻿using Infrastructure.Persistence;
 
-using Application.Abstractions.Data;
+namespace Infrastructure.Repositories;
+
+using Application.Repositories;
 
 public sealed class UnitOfWork(ApplicationDbContext dbContext) : IUnitOfWork
 {

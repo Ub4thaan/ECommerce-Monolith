@@ -1,4 +1,4 @@
-﻿namespace Application.Abstractions.Messaging;
+﻿namespace Application.Queries.Abstractions;
 
 using Application.Errors;
 using MediatR;

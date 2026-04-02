@@ -1,7 +1,8 @@
 ﻿namespace Infrastructure;
 
-using Application.Abstractions.Data;
+using Application.Repositories;
 using Infrastructure.Persistence;
+using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 

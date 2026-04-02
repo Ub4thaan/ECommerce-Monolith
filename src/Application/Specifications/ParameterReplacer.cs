@@ -1,4 +1,4 @@
-﻿namespace Domain.Specifications;
+﻿namespace Application.Specifications;
 
 using System.Linq.Expressions;
 

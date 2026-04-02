@@ -1,8 +1,8 @@
-﻿namespace Domain.Specifications;
+﻿namespace Application.Specifications;
 
 using System.Linq.Expressions;
 
-internal sealed class OrSpecification<T>(Specification<T> left, Specification<T> right) : Specification<T>
+internal sealed class AndSpecification<T>(Specification<T> left, Specification<T> right) : Specification<T>
     where T : class
 {
     public override Expression<Func<T, bool>> ToExpression()
@@ -12,7 +12,7 @@ internal sealed class OrSpecification<T>(Specification<T> left, Specification<T>
 
         var parameter = Expression.Parameter(typeof(T));
 
-        var body = Expression.OrElse(
+        var body = Expression.AndAlso(
             new ParameterReplacer(leftExpression.Parameters[0], parameter).Visit(leftExpression.Body),
             new ParameterReplacer(rightExpression.Parameters[0], parameter).Visit(rightExpression.Body));
 
