@@ -1,12 +1,12 @@
 ﻿namespace Infrastructure.Persistence.Configurations;
 
-using Infrastructure.Persistence.Entities;
+using Infrastructure.Persistence.Entities.Abstractions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 public abstract class DbEntityTypeConfiguration<TEntity, TId>
     : IEntityTypeConfiguration<TEntity>
-    where TEntity : DbEntity<TId>
+    where TEntity : Entity<TId>
     where TId : notnull
 {
     public void Configure(EntityTypeBuilder<TEntity> builder)

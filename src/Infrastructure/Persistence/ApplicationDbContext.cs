@@ -1,6 +1,7 @@
 ﻿namespace Infrastructure.Persistence;
 
 using Infrastructure.Persistence.Entities;
+using Infrastructure.Persistence.Entities.Abstractions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
@@ -24,7 +25,7 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
 
         foreach (EntityEntry entry in ChangeTracker.Entries())
         {
-            if (entry.Entity is not IDatabaseEntity entity)
+            if (entry.Entity is not IDbEntity entity)
             {
                 continue;
             }
