@@ -1,6 +1,6 @@
 ﻿namespace Application.Queries.Abstractions;
 
-using Application.Errors;
+using Application.Results;
 using MediatR;
 
 public interface IQueryHandler<in TQuery, TResponse> : IRequestHandler<TQuery, Result<TResponse>>

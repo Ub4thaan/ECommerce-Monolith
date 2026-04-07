@@ -1,4 +1,6 @@
-﻿namespace Application.Errors;
+﻿using Application.Errors;
+
+namespace Application.Results;
 
 using System.Reflection;
 

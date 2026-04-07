@@ -1,6 +1,6 @@
 ﻿namespace Application.Commands.Abstractions;
 
-using Application.Errors;
+using Application.Results;
 using MediatR;
 
 public interface ICommand : IRequest<Result>;

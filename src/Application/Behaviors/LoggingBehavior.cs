@@ -1,6 +1,6 @@
 ﻿namespace Application.Behaviors;
 
-using Application.Errors;
+using Application.Results;
 using MediatR;
 using Microsoft.Extensions.Logging;
 

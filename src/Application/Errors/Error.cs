@@ -1,6 +1,6 @@
 ﻿namespace Application.Errors;
 
-public record Error(string Code, string Description)
+public record Error(string Code, string Description, ErrorType Type)
 {
-    public static readonly Error None = new(string.Empty, string.Empty);
+    public static readonly Error None = new(string.Empty, string.Empty, ErrorType.Unknown);
 }
