@@ -1,5 +1,6 @@
 ﻿using Application;
 using Infrastructure;
+using Phoenix.WebApi.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +13,8 @@ string connectionString = builder.Configuration.GetConnectionString("DefaultConn
 
 builder.Services
     .AddApplication()
-    .AddInfrastructure(connectionString);
+    .AddInfrastructure(connectionString)
+    .AddEndpoints();
 
 var app = builder.Build();
 
@@ -23,5 +25,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.MapEndpoints();
 
 await app.RunAsync();

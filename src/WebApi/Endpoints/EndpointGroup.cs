@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Phoenix.WebApi.Attributes;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
@@ -12,6 +13,8 @@ namespace Phoenix.WebApi.Endpoints;
 
 public abstract class EndpointGroup : IEndpointGroup
 {
+    private static readonly ConcurrentDictionary<string, (IEndpointGroup[] Groups, IEndpoint[] Endpoints)> TagCache = new();
+
     public abstract string Tag { get; }
 
     public virtual void MapEndpoints(IEndpointRouteBuilder app)
@@ -19,18 +22,29 @@ public abstract class EndpointGroup : IEndpointGroup
         var serviceProvider = app.ServiceProvider;
 
         var group = app.MapGroup(Tag).WithTags(Tag);
-        var endpintGroups = serviceProvider
-            .GetServices<IEndpointGroup>()
-            .Where(g => g != this && g.GetType().IsClass && !g.GetType().IsAbstract && g.GetType().GetCustomAttribute<TagAttribute>()?.Tag == Tag);
 
-        foreach (var endpointGroup in endpintGroups)
-            endpointGroup.MapEndpoints(group);
+        var (cachedGroups, cachedEndpoints) = TagCache.GetOrAdd(Tag, tag =>
+        {
+            var groups = serviceProvider
+                .GetServices<IEndpointGroup>()
+                .Where(g => g.GetType().GetCustomAttribute<TagAttribute>()?.Tag == tag)
+                .ToArray();
 
-        var endpints = serviceProvider
-            .GetServices<IEndpoint>()
-            .Where(e => e.GetType().IsClass && !e.GetType().IsAbstract && e.GetType().GetCustomAttribute<TagAttribute>()?.Tag == Tag);
+            var endpoints = serviceProvider
+                .GetServices<IEndpoint>()
+                .Where(e => e.GetType().GetCustomAttribute<TagAttribute>()?.Tag == tag)
+                .ToArray();
 
-        foreach (var endpoint in endpints)
+            return (groups, endpoints);
+        });
+
+        foreach (var endpointGroup in cachedGroups)
+        {
+            if (endpointGroup != this)
+                endpointGroup.MapEndpoints(group);
+        }
+
+        foreach (var endpoint in cachedEndpoints)
             endpoint.MapEndpoint(group);
     }
 }
