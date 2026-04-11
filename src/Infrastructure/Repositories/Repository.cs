@@ -1,6 +1,7 @@
 ﻿namespace Infrastructure.Repositories;
 
 using Application.Repositories;
+using Application.Repositories.Results;
 using Application.Specifications;
 using Domain.Entities.Abstractions;
 using Infrastructure.Persistence;
@@ -28,9 +29,32 @@ public abstract class Repository<TEntity, TId>(ApplicationDbContext dbContext)
         Specification<TEntity> specification,
         CancellationToken cancellationToken = default)
     {
-        return await DbSet
-            .Where(specification.ToExpression())
+        return await ApplySpecification(specification)
             .ToListAsync(cancellationToken);
+    }
+
+    public async Task<PagedResult<TEntity>> FindPagedAsync(
+        Specification<TEntity> specification,
+        CancellationToken cancellationToken = default)
+    {
+        var query = ApplySpecification(specification);
+
+        var totalCount = await query.CountAsync(cancellationToken);
+
+        if (specification.IsPagingEnabled)
+        {
+            query = query
+                .Skip(specification.Skip!.Value)
+                .Take(specification.Take!.Value);
+        }
+
+        var items = await query.ToListAsync(cancellationToken);
+
+        return new PagedResult<TEntity>(
+            items,
+            specification.IsPagingEnabled ? (specification.Skip!.Value / specification.Take!.Value) + 1 : 1,
+            specification.Take ?? totalCount,
+            totalCount);
     }
 
     public void Add(TEntity entity)
@@ -56,5 +80,21 @@ public abstract class Repository<TEntity, TId>(ApplicationDbContext dbContext)
     public void RemoveRange(IEnumerable<TEntity> entities)
     {
         DbSet.RemoveRange(entities);
+    }
+
+    private IQueryable<TEntity> ApplySpecification(Specification<TEntity> specification)
+    {
+        var query = DbSet.Where(specification.ToExpression());
+
+        if (specification.OrderByExpression is not null)
+        {
+            query = query.OrderBy(specification.OrderByExpression);
+        }
+        else if (specification.OrderByDescendingExpression is not null)
+        {
+            query = query.OrderByDescending(specification.OrderByDescendingExpression);
+        }
+
+        return query;
     }
 }

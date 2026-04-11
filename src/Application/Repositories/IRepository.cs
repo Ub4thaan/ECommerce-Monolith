@@ -1,5 +1,6 @@
 ﻿namespace Application.Repositories;
 
+using Application.Repositories.Results;
 using Application.Specifications;
 using Domain.Entities.Abstractions;
 
@@ -10,6 +11,7 @@ public interface IRepository<TEntity, TId>
     Task<TEntity?> GetByIdAsync(TId id, CancellationToken cancellationToken = default);
     Task<IReadOnlyList<TEntity>> GetAllAsync(CancellationToken cancellationToken = default);
     Task<IReadOnlyList<TEntity>> FindAsync(Specification<TEntity> specification, CancellationToken cancellationToken = default);
+    Task<PagedResult<TEntity>> FindPagedAsync(Specification<TEntity> specification, CancellationToken cancellationToken = default);
     void Add(TEntity entity);
     void AddRange(IEnumerable<TEntity> entities);
     void Update(TEntity entity);
