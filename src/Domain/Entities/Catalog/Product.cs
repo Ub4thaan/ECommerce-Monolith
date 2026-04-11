@@ -6,8 +6,9 @@ using System.Text;
 
 namespace Domain.Entities.Catalog;
 
-public sealed class Product(ProductId id, string name, string description, string slug, decimal price, string currencyCode, string currencySymbol, int stockQuantity, bool isActive, bool isFeatured) : AggregateRoot<ProductId>(id)
+public sealed class Product(ProductId id, CategoryId? categoryId, string name, string description, string slug, decimal price, string currencyCode, string currencySymbol, int stockQuantity, bool isActive, bool isFeatured) : AggregateRoot<ProductId>(id)
 {
+    public CategoryId? CategoryId { get; private set; } = categoryId;
     public string Name { get; private set; } = name;
     public string Description { get; private set; } = description;
     public string Slug { get; private set; } = slug;
