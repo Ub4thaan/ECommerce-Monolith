@@ -1,6 +1,7 @@
 ﻿namespace Infrastructure;
 
 using Application.Repositories;
+using AutoMapper.Extensions.ExpressionMapping;
 using Infrastructure.Persistence;
 using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -17,7 +18,11 @@ public static class DependencyInjection
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-        services.AddAutoMapper(cfg => cfg.AddMaps(typeof(DependencyInjection).Assembly));
+        services.AddAutoMapper(cfg =>
+        {
+            cfg.AddExpressionMapping();
+            cfg.AddMaps(typeof(DependencyInjection).Assembly);
+        });
 
         return services;
     }
