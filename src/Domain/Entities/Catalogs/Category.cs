@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml.Linq;
 
-namespace Domain.Entities.Catalog;
+namespace Domain.Entities.Catalogs;
 
 public sealed class Category(CategoryId id,string name, string description, string slug, CategoryId? parentCategoryId, bool isActive, bool isFeatured) : AggregateRoot<CategoryId>(id)
 {

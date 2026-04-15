@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Domain.Entities.Catalog;
+namespace Domain.Entities.Catalogs;
 
 public sealed class Product(ProductId id, CategoryId? categoryId, string name, string description, string slug, decimal price, string currencyCode, string currencySymbol, int stockQuantity, bool isActive, bool isFeatured) : AggregateRoot<ProductId>(id)
 {
